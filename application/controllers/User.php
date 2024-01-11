@@ -9,11 +9,15 @@ class user extends CI_Controller
 	}
 	public function index()
 	{
-		$this->load->view('landing/login');
+		$this->load->view('landing/home');
 	}
 	public function register()
 	{
 		$this->load->view('landing/register');
+	}
+	public function login_page()
+	{
+		$this->load->view('landing/login');
 	}
 
 	public function registration()
@@ -68,6 +72,6 @@ class user extends CI_Controller
 		$this->session->unset_userdata('id_user');
 		$this->session->unset_userdata('is_active');
 		$this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Logout Success</div>');
-		redirect('user');
+		redirect('user/login_page');
 	}
 }

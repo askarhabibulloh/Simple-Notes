@@ -55,7 +55,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-0"> Have an account? <a href="<?= base_url('user') ?>" class="text-white-50 fw-bold">Sign In</a>
+                            <p class="mb-0"> Have an account? <a href="<?= base_url('user/login_page') ?>" class="text-white-50 fw-bold">Sign In</a>
                             </p>
                         </div>
 

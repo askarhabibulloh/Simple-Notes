@@ -62,7 +62,7 @@
     <!-- Page Content-->
     <nav class="navbar bg-body-tertiary">
         <form class=" container justify-content-end gap-3">
-            <textarea class=" fs-5 " name="" id="" cols="30" rows="10" placeholder="Type Something"></textarea>
+            <textarea class=" fs-5 " name="" id="" cols="30" rows="10" placeholder="Sudah Berhasil Login"></textarea>
 
             <div class="btn-group dropup">
                 <button type="submit" class="btn btn-secondary">
