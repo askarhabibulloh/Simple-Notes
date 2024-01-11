@@ -36,6 +36,24 @@
         textarea:focus {
             outline: none;
         }
+
+        .username {
+            font-weight: bold;
+        }
+
+        .username:hover {
+            background-color: white;
+        }
+
+        .logout:hover {
+            color: black;
+            background-color: #ffc107;
+        }
+
+        .clear:hover {
+            color: black;
+            background-color: #ffc107;
+        }
     </style>
 </head>
 
@@ -45,8 +63,22 @@
     <nav class="navbar bg-body-tertiary">
         <form class=" container justify-content-end gap-3">
             <textarea class=" fs-5 " name="" id="" cols="30" rows="10" placeholder="Type Something"></textarea>
-            <button class="btn btn-outline-success me-2" type="button">Save</button>
-            <button class="btn btn-outline-danger" type="button">Clear</button>
+
+            <div class="btn-group dropup">
+                <button type="submit" class="btn btn-secondary">
+                    Save Notes
+                </button>
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" style="min-width: 8rem;padding:0;">
+                    <li>
+                        <p class="dropdown-item username">Username</p>
+
+                    <li><a class="dropdown-item logout" href="<?= base_url('user/logout') ?>">Logout</a></li>
+                    <li><a class="dropdown-item clear" href="#">Clear Notes</a></li>
+                </ul>
+            </div>
         </form>
     </nav>
 
