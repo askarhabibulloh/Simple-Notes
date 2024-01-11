@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8" />
@@ -14,13 +14,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cousine&display=swap');
 
-        .container-custom {
-            height: 100%;
-        }
 
         textarea {
             width: 100%;
-            height: 80vh;
             /* From https://css.glass */
             background: rgba(255, 255, 255, 0.005);
             border-radius: 16px;
@@ -42,12 +38,12 @@
     </style>
 </head>
 
-<body style="background: url('<?= base_url("assets/img/") ?>bg.png') no-repeat center center fixed; background-size: cover;">
+<body style="background: url('<?= base_url("assets/img/") ?>g.png') no-repeat center center fixed; background-size: cover; background-color:black;">
 
     <!-- Page Content-->
     <nav class="navbar bg-body-tertiary">
         <form class=" container justify-content-end gap-3">
-            <textarea class="my-5 fs-5 " name="" id="" cols="30" rows="10"></textarea>
+            <textarea class="my-5 fs-5 " name="" id="" cols="30" rows="10" placeholder="Type Something"></textarea>
             <button class="btn btn-outline-success me-2" type="button">Save</button>
             <button class="btn btn-outline-danger" type="button">Clear</button>
         </form>
