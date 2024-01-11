@@ -11,15 +11,11 @@ class user extends CI_Controller
 	{
 		$this->load->view('landing/login');
 	}
-
 	public function register()
 	{
 		$this->load->view('landing/register');
 	}
-	public function notes()
-	{
-		$this->load->view('landing/notes');
-	}
+
 	public function registration()
 	{
 		$this->form_validation->set_rules('typeUsername', 'Username', 'required|trim|is_unique[user.username]');
@@ -56,7 +52,7 @@ class user extends CI_Controller
 					'is_active' => $user['is_active']
 				];
 				$this->session->set_userdata($data);
-				redirect('user/notes');
+				redirect('data/notes');
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
 				redirect('user');
@@ -65,5 +61,13 @@ class user extends CI_Controller
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username Not Registered</div>');
 			redirect('user');
 		}
+	}
+	public function logout()
+	{
+		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('id_user');
+		$this->session->unset_userdata('is_active');
+		$this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Logout Success</div>');
+		redirect('user');
 	}
 }
