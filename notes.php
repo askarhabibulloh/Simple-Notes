@@ -73,7 +73,7 @@
                 </button>
                 <ul class="dropdown-menu" style="min-width: 8rem;padding:0;">
                     <li>
-                        <p class="dropdown-item username"><?= $this->session->userdata('username'); ?></p>
+                        <p class="dropdown-item username">Username</p>
 
                     <li><a class="dropdown-item logout" href="<?= base_url('user/logout') ?>">Logout</a></li>
                     <li><a class="dropdown-item clear" href="#">Clear Notes</a></li>
