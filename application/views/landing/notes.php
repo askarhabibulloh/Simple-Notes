@@ -61,8 +61,8 @@
 
     <!-- Page Content-->
     <nav class="navbar bg-body-tertiary">
-        <form class=" container justify-content-end gap-3">
-            <textarea class=" fs-5 " name="" id="" cols="30" rows="10" placeholder="Sudah Berhasil Login"></textarea>
+        <form class=" container justify-content-end gap-3" method="post" action="<?= base_url('user/update') ?>">
+            <textarea class=" fs-5 " name="catatan" id="" cols="30" rows="10"><?= $this->session->userdata('notes'); ?></textarea>
 
             <div class="btn-group dropup">
                 <button type="submit" class="btn btn-secondary">
