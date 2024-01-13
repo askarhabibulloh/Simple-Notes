@@ -27,6 +27,7 @@ class user extends CI_Controller
 		$this->form_validation->set_rules('typePasswordConfirm', 'Password Confirmation', 'required|trim|matches[typePassword]');
 
 		if ($this->form_validation->run() == false) {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username has taken</div>');
 			redirect('user/register');
 		} else {
 			$data = [
@@ -36,8 +37,14 @@ class user extends CI_Controller
 			];
 
 			$this->db->insert('user', $data);
+			$owner = $this->db->get_where('user', ['username' => $data['username']])->row_array();
+			$data2 = [
+				'notes' => '',
+				'owner' => $owner['id_user']
+			];
+			$this->db->insert('notes', $data2);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your account has been created</div>');
-			redirect('user');
+			redirect('user/login');
 		}
 	}
 
@@ -61,12 +68,12 @@ class user extends CI_Controller
 				$this->session->set_userdata($data);
 				redirect('data/notes');
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
-				redirect('user');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password</div>');
+				redirect('user/login_page');
 			}
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username Not Registered</div>');
-			redirect('user');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password</div>');
+			redirect('user/login_page');
 		}
 	}
 	public function logout()
