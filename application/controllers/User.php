@@ -9,14 +9,17 @@ class user extends CI_Controller
 	}
 	public function index()
 	{
+		home();
 		$this->load->view('landing/home');
 	}
 	public function register()
 	{
+		is_logged_in();
 		$this->load->view('landing/register');
 	}
 	public function login_page()
 	{
+		is_logged_in();
 		$this->load->view('landing/login');
 	}
 

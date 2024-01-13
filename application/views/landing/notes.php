@@ -61,7 +61,7 @@
 
     <!-- Page Content-->
     <nav class="navbar bg-body-tertiary">
-        <form class=" container justify-content-end gap-3" method="post" action="<?= base_url('user/update') ?>">
+        <form class=" container justify-content-end gap-3" method="post" action="<?= base_url('user/update') ?>"><?= $this->session->flashdata('message') ?>
             <textarea class=" fs-5 " name="catatan" id="" cols="30" rows="10"><?= $this->session->userdata('notes'); ?></textarea>
 
             <div class="btn-group dropup">

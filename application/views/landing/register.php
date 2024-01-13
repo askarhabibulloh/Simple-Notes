@@ -121,6 +121,8 @@
 
             if (pass1Value.length === 5 && pass1Value === pass2Value) {
                 document.getElementById('passconf').innerText = ''; // Password match, clear any existing message
+            } else if (pass2Value.length == 0) {
+                document.getElementById('passconf').innerText = '';
             } else {
                 document.getElementById('passconf').innerText = 'Password does not match';
             }
@@ -133,7 +135,7 @@
             if (pass1ValueLength > 0 && pass1ValueLength < 5) {
                 document.getElementById('passlength').innerText = "Minimum 5 Characters";
             } else if (pass1ValueLength === 0) {
-                document.getElementById('passlength').innerText = 'Please enter a password';
+                document.getElementById('passlength').innerText = '';
             } else {
                 // Handle other cases or clear any existing messages
                 document.getElementById('passlength').innerText = '';
