@@ -39,6 +39,7 @@
                                 <div class="form-outline form-white mb-4">
                                     <label for="typeUsername">Username</label>
                                     <input type="text" id="typeUsername" name="typeUsername" class="form-control form-control-lg" />
+                                    <div class="text-danger" id="usernameWarning"></div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
@@ -49,6 +50,7 @@
                                 <div class="form-outline form-white mb-4">
                                     <label for="typePasswordConfirm">Password Confirmation</label>
                                     <input type="password" id="typePasswordConfirm" name="typePasswordConfirm" class="form-control form-control-lg" />
+                                    <div class="text-danger" id="passconf"></div>
                                 </div>
                                 <button type="button" class="btn btn-outline-light btn-lg px-5 mt-3" id='registerButton' data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Pastikan sudah mengisi data dengan benar">Register</button>
                             </form>
@@ -71,14 +73,17 @@
         </div>
     </div><!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script>
         //tooltip
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         let tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-        document.addEventListener('DOMContentLoaded', function() {
-            checkDisabled();
-        });
+        let tombol = 'button';
+        const warningElement = document.getElementById('usernameWarning');
+
         const name = document.getElementById('typeUsername');
         const pass1 = document.getElementById('typePassword');
         const pass2 = document.getElementById('typePasswordConfirm');
@@ -86,6 +91,8 @@
 
         // Menambahkan event listener pada kedua elemen password
 
+        name.addEventListener('input', checkUsernameAvailability);
+        name.addEventListener('blur', checkUsernameAvailability);
         name.addEventListener('input', checkPasswordMatch);
         pass1.addEventListener('input', checkPasswordMatch);
         pass1.addEventListener('input', checkLength);
@@ -98,12 +105,12 @@
             const pass1ValueLength = pass1.value.length;
             const pass2Value = pass2.value;
 
-            if (namevalue != '' && pass1ValueLength == 5 && pass1Value === pass2Value) {
-                // Jika password sama
-                tooltipList = [];
-                registerButton.setAttribute('type', 'submit');
-            } else {
 
+
+
+            if (namevalue != '' && pass1ValueLength == 5 && pass1Value === pass2Value) {
+                registerButton.setAttribute('type', tombol);
+            } else {
                 registerButton.setAttribute('type', 'button');
             }
         }
@@ -112,10 +119,10 @@
             const pass1Value = pass1.value;
             const pass2Value = pass2.value;
 
-            if (pass1ValueLength == 5 && pass1Value === pass2Value) {
-                // Jika password sama
-                tooltipList = [];
-                registerButton.setAttribute('type', 'submit');
+            if (pass1Value.length === 5 && pass1Value === pass2Value) {
+                document.getElementById('passconf').innerText = ''; // Password match, clear any existing message
+            } else {
+                document.getElementById('passconf').innerText = 'Password does not match';
             }
         }
 
@@ -131,6 +138,42 @@
                 // Handle other cases or clear any existing messages
                 document.getElementById('passlength').innerText = '';
             }
+            checkConfirm();
+        }
+
+        function checkUsernameAvailability() {
+            if (name.value.length == 0) {
+                warningElement.innerText = "";
+                return;
+            }
+            var username = name.value;
+
+            // Menggunakan library seperti jQuery untuk memudahkan Ajax
+            $.ajax({
+                url: '<?= base_url('user/verifUsername') ?>', // Sesuaikan dengan URL di mana Anda memeriksa username
+                type: 'POST',
+                data: {
+                    username: username
+                },
+                success: function(response) {
+                    responseParsed = JSON.parse(response);
+                    if (responseParsed.message == 'Yes') {
+                        warningElement.innerText = 'Username is already taken';
+                        tombol = 'button';
+                        registerButton.setAttribute('type', tombol);
+
+                    } else {
+                        warningElement.innerText = '';
+                        tombol = 'submit';
+                        registerButton.setAttribute('type', tombol);
+
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         }
     </script>
 </body>

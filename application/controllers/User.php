@@ -27,7 +27,7 @@ class user extends CI_Controller
 		$this->form_validation->set_rules('typePasswordConfirm', 'Password Confirmation', 'required|trim|matches[typePassword]');
 
 		if ($this->form_validation->run() == false) {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username has taken</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password doesnt match</div>');
 			redirect('user/register');
 		} else {
 			$data = [
@@ -43,8 +43,8 @@ class user extends CI_Controller
 				'owner' => $owner['id_user']
 			];
 			$this->db->insert('notes', $data2);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your account has been created</div>');
-			redirect('user/login');
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account Created</div>');
+			redirect('user/login_page');
 		}
 	}
 
@@ -99,5 +99,21 @@ class user extends CI_Controller
 		];
 		$this->session->set_userdata($data);
 		redirect('data/notes');
+	}
+
+	public function verifUsername()
+	{
+		// Mengambil data input dari formulir
+		$username = $this->input->post('username');
+
+		// Validasi input
+		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.username]');
+
+		if ($this->form_validation->run() == FALSE) {
+			// $this->output->set_status_header(409); 
+			echo json_encode(['message' => 'Yes']);
+		} else {
+			echo json_encode(['message' => 'No']);
+		}
 	}
 }
