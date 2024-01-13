@@ -10,6 +10,11 @@ class data extends CI_Controller
     }
     public function notes()
     {
+        $notes = $this->db->get_where('notes', ['id_notes' => $this->session->userdata('id_notes')])->row_array();
+        $data = [
+            'notes' => $notes['notes']
+        ];
+        $this->session->set_userdata($data);
         $this->load->view('landing/notes');
     }
 }

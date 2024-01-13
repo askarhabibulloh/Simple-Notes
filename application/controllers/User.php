@@ -96,11 +96,11 @@ class user extends CI_Controller
 		);
 		$whereCondition = array('id_notes' => $this->session->userdata('id_notes'));
 		$this->db->update('notes', $dataToUpdate, $whereCondition);
-		$notes = $this->db->get_where('notes', ['id_notes' => $this->session->userdata('id_notes')])->row_array();
-		$data = [
-			'notes' => $notes['notes']
-		];
-		$this->session->set_userdata($data);
+		// $notes = $this->db->get_where('notes', ['id_notes' => $this->session->userdata('id_notes')])->row_array();
+		// $data = [
+		// 	'notes' => $notes['notes']
+		// ];
+		// $this->session->set_userdata($data);
 		redirect('data/notes');
 	}
 
