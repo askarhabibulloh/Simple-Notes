@@ -62,7 +62,7 @@
     <!-- Page Content-->
     <nav class="navbar bg-body-tertiary">
         <form class=" container justify-content-end gap-3" method="post" action="<?= base_url('user/update') ?>"><?= $this->session->flashdata('message') ?>
-            <textarea class=" fs-5 " name="catatan" id="" cols="30" rows="10"><?= $this->session->userdata('notes'); ?></textarea>
+            <textarea class=" fs-5 " name="catatan" id="" cols="30" rows="10" placeholder="Type Something"><?= $this->session->userdata('notes'); ?></textarea>
 
             <div class="btn-group dropup">
                 <button type="submit" class="btn btn-secondary">
@@ -76,7 +76,7 @@
                         <p class="dropdown-item username"><?= $this->session->userdata('username'); ?></p>
 
                     <li><a class="dropdown-item logout" href="<?= base_url('user/logout') ?>">Logout</a></li>
-                    <li><a class="dropdown-item clear" href="#">Clear Notes</a></li>
+                    <li><a class="dropdown-item clear" href="<?= base_url('user/clear_notes') ?>">Clear Notes</a></li>
                 </ul>
             </div>
         </form>

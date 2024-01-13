@@ -30,7 +30,7 @@ class user extends CI_Controller
 		$this->form_validation->set_rules('typePasswordConfirm', 'Password Confirmation', 'required|trim|matches[typePassword]');
 
 		if ($this->form_validation->run() == false) {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password doesnt match</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password doesnt match<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 			redirect('user/register');
 		} else {
 			$data = [
@@ -71,11 +71,11 @@ class user extends CI_Controller
 				$this->session->set_userdata($data);
 				redirect('data/notes');
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password</div>');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 				redirect('user/login_page');
 			}
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong username or password<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 			redirect('user/login_page');
 		}
 	}
@@ -118,5 +118,21 @@ class user extends CI_Controller
 		} else {
 			echo json_encode(['message' => 'No']);
 		}
+	}
+
+	public function clear_notes()
+	{
+		$dataToUpdate = array(
+			'notes' => '',
+		);
+		$whereCondition = array('id_notes' => $this->session->userdata('id_notes'));
+		$this->db->update('notes', $dataToUpdate, $whereCondition);
+		$this->db->update('notes', $dataToUpdate, $whereCondition);
+		$notes = $this->db->get_where('notes', ['id_notes' => $this->session->userdata('id_notes')])->row_array();
+		$data = [
+			'notes' => $notes['notes']
+		];
+		$this->session->set_userdata($data);
+		redirect('data/notes');
 	}
 }
